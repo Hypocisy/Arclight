@@ -41,7 +41,9 @@ public class NeoforgeInstaller {
         var sysType = File.pathSeparatorChar == ';' ? "win" : "unix";
         Path path = Paths.get("libraries", "net", "neoforged", "neoforge", installInfo.installer.neoforge, sysType + "_args.txt");
         var installForge = !Files.exists(path) || forgeClasspathMissing(path);
-        return classpath(path, installInfo);
+        if(installForge){
+            return classpath(path, installInfo);
+        }
         if (!suppliers.isEmpty() || installForge) {
             System.out.println("Downloading missing libraries ...");
             ExecutorService pool = Executors.newWorkStealingPool(8);
